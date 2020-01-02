@@ -1,6 +1,5 @@
 module.exports = {
   base: '/blog/',
-  dest: 'public',
   title: 'Dxx',
   description: '我的个人网站',
   themeConfig: {
