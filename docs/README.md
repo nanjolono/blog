@@ -1,10 +1,10 @@
 ---
 home: true
-heroImage: /theme.jpeg
+heroImage: /vue.jpg
 heroText: Dxx's Personal Blog
 tagline: Dxx's 的个人站点
 actionText: 这里进来 ~
-actionLink: /front-end/
+actionLink: /css-module/001
 features:
   - title: 前端小事
     details: 包括但不限于 js, es6, vue, react 等平时记录的细节

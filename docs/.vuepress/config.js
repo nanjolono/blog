@@ -1,3 +1,5 @@
+const { requireSidebar } = require('./utils')
+
 module.exports = {
   base: '/blog/',
   title: 'Dxx',
@@ -6,24 +8,24 @@ module.exports = {
     nav: [
       { text: 'Home', link: '/' },
       { text: 'GitHub', link: 'https://github.com/Dxxxxxxww' },
-      { text: 'External', link: 'https://google.com' }
+      { text: 'External', link: 'https://google.com' },
     ],
-    sidebar: [
-      {
-        title: '前端小事',
-        children: [
-          ['/front-end/', 'heihei'],
-          ['/front-end/utils/', 'JS工具函数集合']
-        ]
-      },
-      {
-        title: 'CSS点滴',
-        children: [['/css/', '哈哈哈']]
-      },
-      {
-        title: '其他',
-        children: [['/others/', '哈哈哈']]
-      }
-    ]
-  }
+    sidebar: requireSidebar(),
+    // requireSidebar(), //[
+    // {
+    //   title: '前端小事',
+    //   children: [
+    //     ['/front-end/', 'heihei'],
+    //   ],
+    // },
+    //   {
+    //     title: 'CSS点滴',
+    //     children: [['css-module', '1.盒模型']],
+    //   },
+    //   {
+    //     title: '其他',
+    //     children: [['others-module', '哈哈哈']],
+    //   },
+    // ],
+  },
 }
