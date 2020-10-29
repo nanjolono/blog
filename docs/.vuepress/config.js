@@ -11,7 +11,14 @@ module.exports = {
       { text: 'External', link: 'https://google.com' },
     ],
     sidebar: requireSidebar(),
-    // requireSidebar(), //[
+    themeConfig: {
+      lastUpdated: true, // '最后更新时间',
+    },
+    markdown: {
+      // 显示代码块行号
+      lineNumbers: true,
+    },
+    //[
     // {
     //   title: '前端小事',
     //   children: [
