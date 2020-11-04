@@ -1,47 +1,65 @@
-const analyseType = (o) => {
-  var s = Object.prototype.toString.call(o)
-  return s.match(/\[object (.*?)\]/)[1].toLowerCase()
+// es3
+
+Function.prototype.apply6 = function(context, args) {
+  context.fn = this
+  const result = context.fn(...args)
+  delete context.fn
+  return result
 }
 
-const isObject = (o) => {
-  return (
-    analyseType(o) === 'object' ||
-    analyseType(o) === 'array' ||
-    analyseType(o) === 'function'
-  )
-}
+Function.prototype.bind3 = function() {
+  const context = arguments[0],
+    args = arguments
 
-const deepClone = (target, map = new WeakMap()) => {
-  if (isObject(target)) {
-    // 解决循环引用，用 weakmap 防止内存泄露
-    if (map.get(target)) {
-      return target
+  context.fn = this
+  return function() {
+    const args2 = [].concat.apply6(args, arguments),
+      params = []
+    for (let i = 1; i < args2.length; i++) {
+      params.push(arguments[i])
     }
-    map.set(target, true)
-    let cloneTarget
-    if (Array.isArray(target)) {
-      cloneTarget = []
-      target.forEach((v, i) => {
-        cloneTarget[i] = deepClone(v, map)
-      })
-    } else {
-      cloneTarget = {}
-      for (const key in target) {
-        if (target.hasOwnProperty(key)) {
-          cloneTarget[key] = deepClone(target[key], map)
-        }
-      }
-    }
-    return cloneTarget
-  } else {
-    return target
+    const result = eval(`context.fn(${args})`)
+    delete context.fn
+    return result
   }
 }
 
-const a = { a: { a: 'a' } }
-a.b = a
+Function.prototype.bind4 = function() {
+  return () => {
+    const context = arguments[0],
+      args = []
 
-const c = [1, 2]
-c[2] = c
+    context.fn = this
+    for (let i = 1; i < arguments.length; i++) {
+      args.push(`arguments[${i}]`)
+    }
+    const result = eval(`context.fn(${args})`)
+    delete context.fn
+    return result
+  }
+}
 
-console.log(deepClone(a), deepClone(c))
+// es6
+Function.prototype.bind6 = function(context, ...args) {
+  return () => {
+    context.fn = this
+    const result = context.fn(...args)
+    delete context.fn
+    return result
+  }
+}
+
+// es6
+const a = 10,
+  obj = {
+    a: 1,
+    b: {
+      c: 'ccc',
+    },
+  }
+function test(p1, p2, p3) {
+  return `${this.a} + ${this.b.c} + ${p1} + ${p2} + ${p3}`
+}
+console.log(test.bind3(obj, 1, 2)('c'))
+console.log(test.bind4(obj, 1, 2, 'c')())
+console.log(test.bind6(obj, 1, 2, 'c')())
