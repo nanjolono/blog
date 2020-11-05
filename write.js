@@ -1,55 +1,37 @@
 // es3
-
 Function.prototype.apply6 = function(context, args) {
+  const params = []
   context.fn = this
-  const result = context.fn(...args)
+
+  if (args) {
+    for (let i = 0; i < args.length; i++) {
+      params.push(`args[${i}]`)
+    }
+  }
+  const result = eval(`context.fn(${params})`)
   delete context.fn
   return result
 }
 
-Function.prototype.bind3 = function() {
-  const context = arguments[0],
-    args = arguments
+Function.prototype.bind5 = function(context) {
+  const args = [].slice.apply6(arguments, [1]),
+    self = this
 
-  context.fn = this
-  return function() {
-    const args2 = [].concat.apply6(args, arguments),
-      params = []
-    for (let i = 1; i < args2.length; i++) {
-      params.push(arguments[i])
-    }
-    const result = eval(`context.fn(${args})`)
-    delete context.fn
-    return result
+  const Fc = function() {}
+  Fc.prototype = self.prototype
+
+  const func = function() {
+    const args2 = [].slice.apply6(arguments)
+    return self.apply6(
+      this instanceof func ? this : context,
+      args.concat(args2)
+    )
   }
+  // 继承一下，这样保证了原型链，又不会影响到父类的 prototype
+  func.prototype = new Fc()
+  return func
 }
 
-Function.prototype.bind4 = function() {
-  return () => {
-    const context = arguments[0],
-      args = []
-
-    context.fn = this
-    for (let i = 1; i < arguments.length; i++) {
-      args.push(`arguments[${i}]`)
-    }
-    const result = eval(`context.fn(${args})`)
-    delete context.fn
-    return result
-  }
-}
-
-// es6
-Function.prototype.bind6 = function(context, ...args) {
-  return () => {
-    context.fn = this
-    const result = context.fn(...args)
-    delete context.fn
-    return result
-  }
-}
-
-// es6
 const a = 10,
   obj = {
     a: 1,
@@ -60,6 +42,18 @@ const a = 10,
 function test(p1, p2, p3) {
   return `${this.a} + ${this.b.c} + ${p1} + ${p2} + ${p3}`
 }
-console.log(test.bind3(obj, 1, 2)('c'))
-console.log(test.bind4(obj, 1, 2, 'c')())
-console.log(test.bind6(obj, 1, 2, 'c')())
+const value = 2
+
+const foo = {
+  value: 1,
+}
+
+function bar(name, age) {
+  this.habit = 'shopping'
+  console.log(this.value)
+  console.log(name)
+  console.log(age)
+}
+console.log(test.bind5(obj, 1, 2)('c'))
+const f = bar.bind5(foo, 1, 2)
+console.log(new f(3))
