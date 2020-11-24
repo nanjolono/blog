@@ -1,59 +1,51 @@
-// es3
-Function.prototype.apply6 = function(context, args) {
-  const params = []
-  context.fn = this
+function a(str) {
+  const list = str.split('')
+  const indexList = []
+  list.forEach((v, i) => {
+    if (!(i % 3)) {
+      indexList.push(i)
+    }
+  })
+  indexList.sort((a, b) => b - a)
+  indexList.forEach((v) => {
+    if (v) {
+      list.splice(v, 0, ',')
+    }
+  })
+  console.log(list.join(''))
+}
 
-  if (args) {
-    for (let i = 0; i < args.length; i++) {
-      params.push(`args[${i}]`)
+function a2(str) {
+  const index = str.indexOf('.'),
+    dot = ','
+  let pre, suf
+  if (index !== -1) {
+    pre = str.slice(0, index)
+    suf = str.slice(index)
+  } else {
+    pre = str
+  }
+
+  const list = pre.split('')
+  pre = ''
+
+  let v
+  for (let i = list.length - 1; i >= 0; i--) {
+    v = list[i]
+    pre = v + pre
+    if (!(i % 3)) {
+      pre = dot + pre
     }
   }
-  const result = eval(`context.fn(${params})`)
-  delete context.fn
-  return result
-}
 
-Function.prototype.bind5 = function(context) {
-  const args = [].slice.apply6(arguments, [1]),
-    self = this
-
-  const Fc = function() {}
-  Fc.prototype = self.prototype
-
-  const func = function() {
-    const args2 = [].slice.apply6(arguments)
-    return self.apply6(
-      this instanceof func ? this : context,
-      args.concat(args2)
-    )
+  if (suf) {
+    pre = pre + suf
   }
-  // 继承一下，这样保证了原型链，又不会影响到父类的 prototype
-  func.prototype = new Fc()
-  return func
-}
-
-const a = 10,
-  obj = {
-    a: 1,
-    b: {
-      c: 'ccc',
-    },
+  if (pre.indexOf(dot) === 0) {
+    pre = pre.slice(1)
   }
-function test(p1, p2, p3) {
-  return `${this.a} + ${this.b.c} + ${p1} + ${p2} + ${p3}`
-}
-const value = 2
-
-const foo = {
-  value: 1,
+  console.log(pre)
+  return pre
 }
 
-function bar(name, age) {
-  this.habit = 'shopping'
-  console.log(this.value)
-  console.log(name)
-  console.log(age)
-}
-console.log(test.bind5(obj, 1, 2)('c'))
-const f = bar.bind5(foo, 1, 2)
-console.log(new f(3))
+a2('123456789')

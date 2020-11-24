@@ -1,1 +1,1 @@
-gogogo
+https://dxxxxxxww.github.io/blog/
