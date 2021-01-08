@@ -8,7 +8,7 @@
     "docs:build": "vuepress build docs",
     "deploy": "./deploy.sh"
   },
-  "author": "dxx",
+  "author": "rainw",
   "license": "MIT",
   "devDependencies": {
     "vuepress": "^1.2.0"

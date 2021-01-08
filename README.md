@@ -1,1 +1,1 @@
-https://dxxxxxxww.github.io/blog/
+https://nanjolono.github.io/blog/

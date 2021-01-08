@@ -1,16 +1,16 @@
 ---
 home: true
-heroImage: /vue.jpg
-heroText: Dxx's Personal Blog
-tagline: Dxx's 的个人站点
-actionText: 这里进来 ~
-actionLink: /css-module/001
+heroImage: /index.jpg
+heroText: nanjolono's Personal Blog🧨
+tagline: 🚗冬天冷了，该多穿衣服了
+actionText: Link Start!
+actionLink: /java-module/001
 features:
-  - title: 前端小事
-    details: 包括但不限于 js, es6, vue, react 等平时记录的细节
-  - title: CSS点滴
-    details: 虽然叫着'css点滴'，但其实是包含 echarts three 等可视化的东西
-  - title: 其他
-    details: 主要是用来存放 flutter, py 等兴趣相关的资料
-footer: MIT Licensed | Copyright © 2019-present Dxx
+  - title: 懂的都懂
+    details: 懂个锤子🔨
+  - title: 瞎叨叨
+    details: 这两天太冷了啊🥶
+  - title: 诡异的东西
+    details: 这都写的什么啊🙉
+footer: MIT Licensed | Copyright © 2019-present nanjolono
 ---

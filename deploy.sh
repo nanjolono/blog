@@ -10,10 +10,10 @@ npm run docs:build
 cd docs/.vuepress/dist
 
 git init
-git add -A
+git add .
 git commit -m 'deploy'
 
-git remote add origin https://github.com/Dxxxxxxww/blog.git
+git remote add origin https://github.com/nanjolono/nanjolono-blog.git
 # git push <远程主机名> <本地分支名>:<远程分支名>
 git push -f origin master:gh-pages
 
